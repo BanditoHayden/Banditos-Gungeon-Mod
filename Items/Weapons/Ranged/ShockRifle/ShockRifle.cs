@@ -15,7 +15,7 @@ namespace GungeonMod.Items.Weapons.Ranged.ShockRifle
         public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 97;
+			item.damage = 98;
 			item.useTime = 15;
 			item.useAnimation = 20;
 			item.knockBack = 4;
