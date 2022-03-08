@@ -11,6 +11,7 @@ using GungeonMod.Items.Weapons.Ranged.ShockRifle;
 using GungeonMod.Items.Accessories.BulletUpgrades;
 using GungeonMod.Items.Accessories.Passives;
 using GungeonMod.Items.Herbs;
+using GungeonMod.Items.Weapons.Ranged.JK47;
 namespace GungeonMod
 {
    public class GungeonNPC : GlobalNPC
@@ -98,6 +99,16 @@ namespace GungeonMod
                 nextSlot++; // Don't forget this line, it is essential.
 
             }
+            if (NPC.downedBoss3)
+            {
+                if (type == NPCID.ArmsDealer)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<JK47>());
+                    nextSlot++; // Don't forget this line, it is essential.
+
+                }
+            }
+
         }
 
     }
