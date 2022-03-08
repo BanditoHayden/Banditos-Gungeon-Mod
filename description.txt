@@ -1,8 +1,14 @@
 Welcome To The Gungeon adds items from Enter The Gungeon
 Currently it adds :
-1 Weapon
-7 Accessories
-
+2 Weapons
+8 Accessories
+----------------------------------
+Changelog
+0.5
+Added Pea Shooter (Crafted)
+Added Bionic Leg (Drop from Skeletron Prime)
+Name Change
+-----------------------------------
 Discord Server WIP
 Easy way to contact me
 Hayden#0980

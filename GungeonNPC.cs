@@ -9,7 +9,8 @@ using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using GungeonMod.Items.Weapons.Ranged.ShockRifle;
 using GungeonMod.Items.Accessories.BulletUpgrades;
-
+using GungeonMod.Items.Accessories.Passives;
+using GungeonMod.Items.Herbs;
 namespace GungeonMod
 {
    public class GungeonNPC : GlobalNPC
@@ -64,6 +65,14 @@ namespace GungeonMod
                 }
 
             }
+            if (npc.type == NPCID.SkeletronPrime)
+            {
+                if (Main.rand.NextBool(5))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<BionicLeg>());
+                }
+
+            }
 
 
 
@@ -81,19 +90,15 @@ namespace GungeonMod
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<RocketBullets>());
                 nextSlot++; // Don't forget this line, it is essential.
 
-
-
             }
 
+            if (type == NPCID.Dryad)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<PeaSeeds>());
+                nextSlot++; // Don't forget this line, it is essential.
 
-
-
+            }
         }
-
-
-
-
-
 
     }
 }

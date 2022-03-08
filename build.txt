@@ -1,4 +1,4 @@
 displayName = Bandito's Gungeon Mod
 homepage = https://github.com/BanditoHayden/WelcomeToTheGungeon
 author = Bandito Hayden
-version = 0.3
+version = 0.5
