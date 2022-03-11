@@ -38,7 +38,7 @@ namespace GungeonMod
             }
             if (modPlayer.GhostBullets && projectile.friendly && projectile.ranged)
             {
-                projectile.penetrate += 1;
+                projectile.maxPenetrate += 1;
             }
             if (modPlayer.RocketBullets && projectile.friendly && projectile.ranged)
             {

@@ -12,6 +12,9 @@ using GungeonMod.Items.Accessories.BulletUpgrades;
 using GungeonMod.Items.Accessories.Passives;
 using GungeonMod.Items.Herbs;
 using GungeonMod.Items.Weapons.Ranged.JK47;
+using GungeonMod.Items.Weapons.Ranged.AWP;
+using GungeonMod.Items.Weapons.Ranged.BigIron;
+using GungeonMod.Items.Weapons.Ranged.StarterPistols;
 namespace GungeonMod
 {
    public class GungeonNPC : GlobalNPC
@@ -74,8 +77,22 @@ namespace GungeonMod
                 }
 
             }
+            if (npc.type == NPCID.DukeFishron)
+            {
+                if (Main.rand.NextBool(5))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<AWP>());
+                }
 
+            }
+            if (npc.type == NPCID.GraniteGolem)
+            {
+                if (Main.rand.NextBool(15))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<BigIron>());
+                }
 
+            }
 
 
 
@@ -96,6 +113,22 @@ namespace GungeonMod
             if (type == NPCID.Dryad)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<PeaSeeds>());
+                nextSlot++; // Don't forget this line, it is essential.
+
+            }
+            if (type == NPCID.ArmsDealer)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BudgetRevolver>());
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MarineSidearm>());
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RogueSpecial>());
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RustySidearm>());
+
+
+
+
                 nextSlot++; // Don't forget this line, it is essential.
 
             }
