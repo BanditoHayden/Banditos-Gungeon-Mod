@@ -14,7 +14,7 @@ namespace GungeonMod.Items.Actives.PotionofGunFriendship
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Potion of Gun Friendship");
-            Tooltip.SetDefault("Temporary +1 To Gun\nTemporarily increases combat ability.");
+            Tooltip.SetDefault("Temporarily increases combat ability.");
         }
         public override void SetDefaults()
         {
@@ -40,7 +40,7 @@ namespace GungeonMod.Items.Actives.PotionofGunFriendship
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
                 player.AddBuff(item.buffType, 3600, true);
-                player.AddBuff(ModContent.BuffType<GunBuff>(), 480, true);
+                player.AddBuff(ModContent.BuffType<GunBuff>(), 420, true);
                 player.AddBuff(ModContent.BuffType<ActiveCooldown>(), 3600, true);
             }
         }
