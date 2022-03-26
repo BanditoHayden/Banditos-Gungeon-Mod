@@ -7,19 +7,22 @@ using Terraria.Localization;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-
+using GungeonMod.Items.Actives.DoubleVision;
+using GungeonMod.Items.Actives.PotionofGunFriendship;
 
 namespace GungeonMod
 {
    public class GungeonPlayer : ModPlayer
     {
-         public bool SnowBallets;
+        public bool SnowBallets;
         public int SnowBalletsCD;
         public bool GhostBullets;
         public bool RocketBullets;
         public bool IrradiatedLead;
         public bool HotLead;
         public bool SilverBullets;
+        public bool DoubleVision;
+    
         public override void ResetEffects()
         {
             SnowBallets = false;
@@ -28,16 +31,26 @@ namespace GungeonMod
             IrradiatedLead = false;
             HotLead = false;
             SilverBullets = false;
+            DoubleVision = false;
         }
         public override float UseTimeMultiplier(Item item)
         {
             float mult = 1f;
+            if (player.HasBuff(ModContent.BuffType<VisionBuff>()))
+            {
+                mult += 0.5f;
+            }
             if (RocketBullets && item.ranged)
+            {
+                mult += 0.1f;
+            }
+            if (player.HasBuff(ModContent.BuffType<GunBuff>()))
             {
                 mult += 0.1f;
             }
             return mult;
         }
+        
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             if (IrradiatedLead)
@@ -72,11 +85,17 @@ namespace GungeonMod
                     damage /= 2;
                 }
             }
+            if (player.HasBuff(ModContent.BuffType<GunBuff>()))
+            {
+                knockback += 2;
+            }
         }
-
-
-
-
-
+        public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
+        {
+            if (player.HasBuff(ModContent.BuffType<GunBuff>()))
+            {
+                mult += 0.1f;
+            }
+        }
     }
 }

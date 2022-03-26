@@ -44,24 +44,7 @@ namespace GungeonMod
             {
                 projectile.velocity *= 1.05f;
             }
-
-
-
-
-
-
-
-
-
-
-
-
             return rv;
-
-
-
-
-
         }
 
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough)
@@ -74,7 +57,7 @@ namespace GungeonMod
             return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough);
         }
         
-
+       
 
 
     }

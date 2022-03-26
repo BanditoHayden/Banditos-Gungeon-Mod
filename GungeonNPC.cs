@@ -15,6 +15,10 @@ using GungeonMod.Items.Weapons.Ranged.JK47;
 using GungeonMod.Items.Weapons.Ranged.AWP;
 using GungeonMod.Items.Weapons.Ranged.BigIron;
 using GungeonMod.Items.Weapons.Ranged.StarterPistols;
+using GungeonMod.Items.Actives.DoubleVision;
+using GungeonMod.Items.Weapons.Ranged.DragunFire;
+using GungeonMod.Items.Accessories.Passives.BionicLeg;
+
 namespace GungeonMod
 {
    public class GungeonNPC : GlobalNPC
@@ -93,9 +97,46 @@ namespace GungeonMod
                 }
 
             }
+            if (npc.type == NPCID.WanderingEye)
+            {
+                if (Main.rand.NextBool(100))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleVision>());
+                }
 
+            }
+            if (npc.type == NPCID.DemonEye)
+            {
+                if (Main.rand.NextBool(10000))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleVision>());
+                }
 
+            }
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                if (Main.rand.NextBool(1000))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleVision>());
+                }
 
+            }
+            if (npc.type == NPCID.BoneSerpentBody)
+            {
+                if (Main.rand.NextBool(10))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DragunFire>());
+                }
+
+            }
+            if (npc.type == NPCID.BoneSerpentHead)
+            {
+                if (Main.rand.NextBool(10))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DragunFire>());
+                }
+
+            }
 
 
 
@@ -106,14 +147,14 @@ namespace GungeonMod
             if (type == NPCID.Cyborg)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<RocketBullets>());
-                nextSlot++; // Don't forget this line, it is essential.
+                nextSlot++;
 
             }
 
             if (type == NPCID.Dryad)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<PeaSeeds>());
-                nextSlot++; // Don't forget this line, it is essential.
+                nextSlot++;
 
             }
             if (type == NPCID.ArmsDealer)
@@ -125,14 +166,10 @@ namespace GungeonMod
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<RogueSpecial>());
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<RustySidearm>());
-
-
-
-
-                nextSlot++; // Don't forget this line, it is essential.
+                nextSlot++;
 
             }
-            if (NPC.downedBoss3)
+            if (NPC.downedBoss3) // skeletron
             {
                 if (type == NPCID.ArmsDealer)
                 {
