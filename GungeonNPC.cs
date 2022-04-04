@@ -18,7 +18,7 @@ using GungeonMod.Items.Weapons.Ranged.StarterPistols;
 using GungeonMod.Items.Actives.DoubleVision;
 using GungeonMod.Items.Weapons.Ranged.DragunFire;
 using GungeonMod.Items.Accessories.Passives.BionicLeg;
-
+using GungeonMod.Items.Accessories.Passives.HeartSynthesizer;
 namespace GungeonMod
 {
    public class GungeonNPC : GlobalNPC
@@ -168,6 +168,11 @@ namespace GungeonMod
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<RustySidearm>());
                 nextSlot++;
 
+            }
+            if (type == NPCID.Merchant)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeartSynthesizer>());
+                nextSlot++;
             }
             if (NPC.downedBoss3) // skeletron
             {
