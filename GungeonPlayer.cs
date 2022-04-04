@@ -22,7 +22,8 @@ namespace GungeonMod
         public bool HotLead;
         public bool SilverBullets;
         public bool DoubleVision;
-    
+        public bool HeartSynthesizer;
+
         public override void ResetEffects()
         {
             SnowBallets = false;
@@ -32,6 +33,7 @@ namespace GungeonMod
             HotLead = false;
             SilverBullets = false;
             DoubleVision = false;
+            HeartSynthesizer = false; 
         }
         public override float UseTimeMultiplier(Item item)
         {
@@ -53,6 +55,13 @@ namespace GungeonMod
         
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
+            if (HeartSynthesizer)
+            {
+                if (Main.rand.Next(50) == 0)
+                {
+                    Item.NewItem(target.getRect(), ItemID.Heart);
+                }
+            }
             if (IrradiatedLead)
             {
                 target.AddBuff(BuffID.Poisoned, 200);
@@ -61,11 +70,16 @@ namespace GungeonMod
             {
                 target.AddBuff(BuffID.OnFire, 200);
             }
-           
-      
-        
-        
-        
+        }
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            if (HeartSynthesizer)
+            {
+                if (Main.rand.Next(50) == 0)
+                {
+                    Item.NewItem(target.getRect(), ItemID.Heart);
+                }
+            }
         }
         public override void PreUpdate()
         {
