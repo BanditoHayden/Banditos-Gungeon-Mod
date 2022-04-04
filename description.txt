@@ -1,14 +1,17 @@
-Welcome To The Gungeon adds items from Enter The Gungeon
-Currently it adds :
-2 Weapons
-8 Accessories
+Bandito's Gungeon Mod adds items from Enter The Gungeon!
 ----------------------------------
 Changelog
-0.5
-Added Pea Shooter (Crafted)
-Added Bionic Leg (Drop from Skeletron Prime)
-Name Change
+1.0
+Added Several Active items
+Jar of Bees
+Double Vision
+Potion of Gun Friendship
+Added Several Guns
+Black Hole Gun
+Dragunfire
+The Exotic
+Added an accessory
+Heart Synthesizer 
 -----------------------------------
-Discord Server WIP
 Easy way to contact me
 Hayden#0980
