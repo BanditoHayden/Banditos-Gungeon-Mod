@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,7 +20,6 @@ namespace GungeonMod.Items.Weapons.Ranged.ShockRifle
 			item.knockBack = 4;
 			item.value = 800000;
 			item.ranged = true;
-			
 			item.crit = 17;
 			// How the item works
 			item.autoReuse = true;

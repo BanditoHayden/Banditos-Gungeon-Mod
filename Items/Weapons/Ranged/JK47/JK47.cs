@@ -17,11 +17,11 @@ namespace GungeonMod.Items.Weapons.Ranged.JK47
 		public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 26;
+			item.damage = 52;
 			item.useTime = 25;
 			item.useAnimation = 25;
 			item.knockBack = 2;
-			item.value = 110000;
+			item.value = 550000;
 			item.ranged = true;
 			item.crit = 50;
 			// How the item works

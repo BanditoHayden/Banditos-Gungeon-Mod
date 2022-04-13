@@ -40,17 +40,5 @@ namespace GungeonMod.Items.Weapons.Ranged.StarterPistols
 		{
 			return new Vector2(-2, 0);
 		}
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }

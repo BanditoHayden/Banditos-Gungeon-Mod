@@ -35,6 +35,8 @@ namespace GungeonMod.Items.Weapons.Ranged.StarterPistols
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Bpistol");
 			item.rare = 1;
 			item.scale = 1.3f;
+			
+            
 		}
 
 		public override Vector2? HoldoutOffset()
