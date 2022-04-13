@@ -2,9 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using GungeonMod;
-using GungeonMod.Items.Herbs;
-
+using Terraria.GameContent.Creative;
 namespace GungeonMod.Items.Weapons.Ranged.DragunFire
 {
 	public class DragunFire : ModItem
@@ -13,36 +11,37 @@ namespace GungeonMod.Items.Weapons.Ranged.DragunFire
 		{
 			DisplayName.SetDefault("Dragunfire");
 			Tooltip.SetDefault("Roar\n");
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 		public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 14;
-			item.useTime = 8;
-			item.useAnimation = 8;
-			item.knockBack = 0;
-			item.value = 10000;
-			item.ranged = true;
-			item.crit = 4;
+			Item.damage = 14;
+			Item.useTime = 8;
+			Item.useAnimation = 8;
+			Item.knockBack = 0;
+			Item.value = 10000;
+			Item.DamageType = DamageClass.Ranged;
+			Item.crit = 4;
 			// How the item works
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.noMelee = true;
-			item.shoot = mod.ProjectileType("DragunFireProj");
-			item.shootSpeed = 12.7f;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.noMelee = true;
+			Item.shoot = ModContent.ProjectileType<DragunFireProj>();
+			Item.shootSpeed = 12.7f;
 			// Other
-			item.UseSound = SoundID.Item11;
-			item.rare = 3;
-			item.scale = 1.1f;
+			Item.UseSound = SoundID.Item11;
+			Item.rare = 3;
+			Item.scale = 1.1f;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override void AddRecipes()
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			return true;
+			CreateRecipe()
+
+			.AddIngredient(ItemID.Minishark, 1)
+			.AddIngredient(ItemID.HellstoneBar, 10)
+			.AddCondition(Recipe.Condition.NearLava)
+			.Register();
 		}
 		public override Vector2? HoldoutOffset()
 		{

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,19 +12,20 @@ namespace GungeonMod.Items.Weapons.Ranged.BlackHoleGun
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BlackHole");
-           Main.projFrames[projectile.type] = 4;
+           DisplayName.SetDefault("BlackHole");
+           Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.penetrate = 200;
-            projectile.timeLeft = 600;
-            projectile.tileCollide = true;
-            projectile.scale = 1.7f;
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = 200;
+            Projectile.timeLeft = 600;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.tileCollide = true;
+            Projectile.scale = 1.7f;
         }
         public float pullforce = .5f;
         public float hSpeed;
@@ -32,27 +34,27 @@ namespace GungeonMod.Items.Weapons.Ranged.BlackHoleGun
         public NPC test;
         public override void AI()
         {
-            projectile.ai[0] += 1f;
-            if (++projectile.frameCounter >= 5)
+            Projectile.ai[0] += 1f;
+            if (++Projectile.frameCounter >= 5)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 4)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 4)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
-            if (projectile.spriteDirection == -1)
+            if (Projectile.spriteDirection == -1)
             {
-                projectile.rotation += MathHelper.Pi;
+                Projectile.rotation += MathHelper.Pi;
             }
 
-            pullforce = projectile.damage / 100f;
+            pullforce = Projectile.damage / 100f;
             for (int i = 0; i < 200; i++)
             {
                 test = Main.npc[i];
                 if (!test.boss && test.active && test.knockBackResist != 0f && !test.friendly)
                 {
-                    direction = (projectile.Center - test.Center).ToRotation();
+                    direction = (Projectile.Center - test.Center).ToRotation();
                     hSpeed = (float)Math.Cos(direction) * pullforce;
                     vSpeed = (float)Math.Sin(direction) * pullforce;
                     test.velocity += new Vector2(hSpeed, vSpeed);
@@ -61,37 +63,43 @@ namespace GungeonMod.Items.Weapons.Ranged.BlackHoleGun
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.penetrate--;
-            if (projectile.penetrate <= 0)
+            Projectile.penetrate--;
+            if (Projectile.penetrate <= 0)
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
             else
             {
-                Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BlackHoleImpact"));
-                if (projectile.velocity.X != oldVelocity.X)
+                Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+               // Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BlackHoleImpact"));
+
+                if (Projectile.velocity.X != oldVelocity.X)
                 {
-                    projectile.velocity.X = -oldVelocity.X;
+                    Projectile.velocity.X = -oldVelocity.X;
                 }
-                if (projectile.velocity.Y != oldVelocity.Y)
+                if (Projectile.velocity.Y != oldVelocity.Y)
                 {
-                    projectile.velocity.Y = -oldVelocity.Y;
+                    Projectile.velocity.Y = -oldVelocity.Y;
                 }
             }
             return false;
         }
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            //Redraw the projectile with the color not influenced by light
-            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-            for (int k = 0; k < projectile.oldPos.Length; k++)
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            // Redraw the projectile with the color not influenced by light
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-                Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
+
             return true;
         }
+
     }
 }

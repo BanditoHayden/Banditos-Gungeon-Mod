@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using GungeonMod;
-using GungeonMod.Items.Herbs;
+using Terraria.GameContent.Creative;
 namespace GungeonMod.Items.Weapons.Ranged.AWP
 {
   public  class AWP : ModItem
@@ -12,29 +10,30 @@ namespace GungeonMod.Items.Weapons.Ranged.AWP
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("A.W.P,");
-			Tooltip.SetDefault("Noob Cannon\nAn extremely powerful rifle. Banned in some sectors, its ease of use caused it to be the weapon of choice for thousands of unskilled marksmen.");
+			Tooltip.SetDefault("Noob Cannon\n");
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 		public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 357;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 9;
-			item.value = 110000;
-			item.ranged = true;
-			item.crit = 30;
+			Item.damage = 357;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 9;
+			Item.value = 110000;
+			Item.DamageType = DamageClass.Ranged;
+			Item.crit = 30;
 			// How the item works
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.noMelee = true;
-			item.useAmmo = AmmoID.Bullet;
-			item.shoot = 10;
-			item.shootSpeed = 18.7f;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.noMelee = true;
+			Item.useAmmo = AmmoID.Bullet;
+			Item.shoot = 10;
+			Item.shootSpeed = 18.7f;
 			// Other
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AWPshot");
-			item.rare = 2;
-			item.scale = 1.3f;
+			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/AWPshot");
+			Item.rare = 9;
+			Item.scale = 1.3f;
 		}
 
 		public override Vector2? HoldoutOffset()

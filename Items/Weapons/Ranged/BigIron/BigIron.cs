@@ -2,8 +2,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using GungeonMod;
-using GungeonMod.Items.Herbs;
+using Terraria.GameContent.Creative;
+using Terraria.DataStructures;
 
 namespace GungeonMod.Items.Weapons.Ranged.BigIron
 {
@@ -12,52 +12,56 @@ namespace GungeonMod.Items.Weapons.Ranged.BigIron
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Big Iron");
-			Tooltip.SetDefault("Heavy\nThe Big Iron is a strange revolver, created by attaching additional barrels to a magnum. The barrels are not actually connected to the chamber, but they fire nonetheless.");
+			Tooltip.SetDefault("Heavy");
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 		public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 14;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 8;
-			item.value = 10000;
-			item.ranged = true;
-			item.crit = 10;
+			Item.damage = 15;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 8;
+			Item.value = 10000;
+			Item.DamageType = DamageClass.Ranged;
+			Item.crit = 10;
 			// How the item works
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.noMelee = true;
-			item.useAmmo = AmmoID.Bullet;
-			item.shoot = 10;
-			item.shootSpeed = 7.7f;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.noMelee = true;
+			Item.useAmmo = AmmoID.Bullet;
+			Item.shoot = 10;
+			Item.shootSpeed = 9.7f;
 			// Other
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Magnumshot");
-			item.rare = 2;
-			item.scale = 1.1f;
+			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/Magnumshot");
+			Item.rare = 2;
+			Item.scale = 1.1f;
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
 		}
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-			int numberProjectiles = 3; 
-			for (int i = 0; i < numberProjectiles; i++)
+			const int NumProjectiles = 3;
+			for (int i = 0; i < NumProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10)); // 30 degree spread.
-																												
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-			}
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+				newVelocity *= 1f - Main.rand.NextFloat(0.3f);
+				Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
 			}
 			return false;
 		}
-	
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient(ItemID.TheUndertaker, 1)
+				.AddIngredient(ItemID.IronBar, 25)
+				.AddTile(TileID.Anvils)
+				.Register();
+		}
+
 
 	}
 }

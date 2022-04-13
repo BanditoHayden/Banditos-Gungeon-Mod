@@ -2,8 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using GungeonMod;
-using GungeonMod.Items.Herbs;
+
 namespace GungeonMod.Items.Weapons.Ranged.BlackHoleGun
 {
 	public class BlackHoleGun : ModItem
@@ -17,29 +16,29 @@ namespace GungeonMod.Items.Weapons.Ranged.BlackHoleGun
 		public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 80;
-			item.useTime = 160;
-			item.useAnimation = 160;
-			item.knockBack = 9;
-			item.value = 550000;
-			item.ranged = true;
-			item.crit = 30;
+			Item.damage = 80;
+			Item.useTime = 160;
+			Item.useAnimation = 160;
+			Item.knockBack = 9;
+			Item.value = 550000;
+			Item.DamageType = DamageClass.Ranged;
+			Item.crit = 30;
 			// How the item works
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.noMelee = true;
-			
-			item.shoot = mod.ProjectileType("BlackHole");
-			item.shootSpeed = 4.7f;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.noMelee = true;
+
+			Item.shoot = ModContent.ProjectileType<BlackHole>();
+			Item.shootSpeed = 4.7f;
 			// Other
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/BlackHoleShot");
-			item.rare = 9;
-			item.scale = 1.3f;
+			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/BlackHoleShot");
+			Item.rare = 9;
+			Item.scale = 1.3f;
 		}
 		public override bool CanUseItem(Player player)
 		{
 			// test
-			return player.ownedProjectileCounts[item.shoot] < 1;
+			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 		public override Vector2? HoldoutOffset()
 		{

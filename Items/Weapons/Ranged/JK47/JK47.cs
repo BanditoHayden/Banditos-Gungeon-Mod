@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using GungeonMod;
-using GungeonMod.Items.Herbs;
 
 namespace GungeonMod.Items.Weapons.Ranged.JK47
 {
     public class JK47 : ModItem
     {
-		public override void SetStaticDefaults()
+      
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jk-47");
 			Tooltip.SetDefault("Substitute\nNoodle shaped like a gun. Frightens enemies.");
@@ -17,36 +17,47 @@ namespace GungeonMod.Items.Weapons.Ranged.JK47
 		public override void SetDefaults()
 		{
 			// Stats of the item
-			item.damage = 52;
-			item.useTime = 25;
-			item.useAnimation = 25;
-			item.knockBack = 2;
-			item.value = 550000;
-			item.ranged = true;
-			item.crit = 50;
+			Item.damage = 80;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.knockBack = 2;
+			Item.value = 350000;
+			Item.DamageType = DamageClass.Ranged;
+			Item.crit = 50;
 			// How the item works
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.noMelee = true;
-			item.useAmmo = AmmoID.Bullet;
-			item.shoot = 10;
-			item.shootSpeed = 6.7f;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.noMelee = true;
+			Item.useAmmo = AmmoID.Bullet;
+			Item.shoot = 10;
+			Item.shootSpeed = 6.7f;
 			// Other
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/JK47shot");
-			item.rare = 2;
-			item.scale = 1.1f;
+			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/JK47shot");
+			Item.rare = 2;
+			Item.scale = 1.1f;
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
 		}
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
-			speedX = perturbedSpeed.X;
-			speedY = perturbedSpeed.Y;
-			return true;
+			const int NumProjectiles = 1; // The humber of projectiles that this gun will shoot.
+
+			for (int i = 0; i < NumProjectiles; i++)
+			{
+				// Rotate the velocity randomly by 30 degrees at max.
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(50));
+
+				// Decrease velocity randomly for nicer visuals.
+				newVelocity *= 1f - Main.rand.NextFloat(0.3f);
+
+				// Create a projectile.
+				Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+			}
+
+			return false;
 		}
 
 
