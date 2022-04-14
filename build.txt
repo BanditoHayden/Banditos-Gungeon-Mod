@@ -1,4 +1,4 @@
 displayName = Bandito's Gungeon Mod
-homepage = https://discord.gg/YgMdWbFscC`
+homepage = https://discord.gg/YgMdWbFscC
 author = Bandito Hayden
 version = 1.0

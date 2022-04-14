@@ -1,17 +1,12 @@
 Bandito's Gungeon Mod adds items from Enter The Gungeon!
 ----------------------------------
+Currently it adds:
+13 Weapons
+9 Accessories
+3 Active Items
+----------------------------------
 Changelog
 1.0
-Added Several Active items
-Jar of Bees
-Double Vision
-Potion of Gun Friendship
-Added Several Guns
-Black Hole Gun
-Dragunfire
-The Exotic
-Added an accessory
-Heart Synthesizer 
------------------------------------
-Easy way to contact me
-Hayden#0980
+Full 1.4 Port
+----------------------------------
+https://discord.gg/YgMdWbFscC
