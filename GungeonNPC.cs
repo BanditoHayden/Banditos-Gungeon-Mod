@@ -1,179 +1,137 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using System;
-using Terraria.Localization;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Microsoft.Xna.Framework;
+using Terraria.GameContent.ItemDropRules;
 using GungeonMod.Items.Weapons.Ranged.ShockRifle;
-using GungeonMod.Items.Accessories.BulletUpgrades;
-using GungeonMod.Items.Accessories.Passives;
-using GungeonMod.Items.Herbs;
-using GungeonMod.Items.Weapons.Ranged.JK47;
 using GungeonMod.Items.Weapons.Ranged.AWP;
-using GungeonMod.Items.Weapons.Ranged.BigIron;
-using GungeonMod.Items.Weapons.Ranged.StarterPistols;
-using GungeonMod.Items.Actives.DoubleVision;
-using GungeonMod.Items.Weapons.Ranged.DragunFire;
-using GungeonMod.Items.Accessories.Passives.BionicLeg;
+using GungeonMod.Items.Weapons.Ranged.JK47;
+using GungeonMod.Items.Weapons.Ranged.TheExotic;
+using GungeonMod.Items.Accessories.BulletUpgrades.GhostBullets;
+using GungeonMod.Items.Accessories.BulletUpgrades.IrradiatedLead;
+using GungeonMod.Items.Accessories.BulletUpgrades.RocketBullets;
+using GungeonMod.Items.Accessories.BulletUpgrades;
+using GungeonMod.Items.Accessories.BulletUpgrades.SilverBullets;
 using GungeonMod.Items.Accessories.Passives.HeartSynthesizer;
+using GungeonMod.Items.Actives.DoubleVision;
+
 namespace GungeonMod
 {
-   public class GungeonNPC : GlobalNPC
+    public class GungeonNPC : GlobalNPC
     {
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if (npc.type == NPCID.MartianSaucer)
+            if (npc.type == NPCID.MartianSaucerCore)
             {
-                if (Main.rand.NextBool(3))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<ShockRifle>());
-                }
-                    
-            }
-            if (npc.type == NPCID.Lihzahrd)
-            {
-                if (Main.rand.NextBool(100))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<Plus1Bullets>());
-                }
-
-            }
-            if (npc.type == NPCID.LihzahrdCrawler)
-            {
-                if (Main.rand.NextBool(50))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<Plus1Bullets>());
-                }
-
-            }
-            if (npc.type == NPCID.JungleBat)
-            {
-                if (Main.rand.NextBool(200))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<IrradiatedLead>());
-                }
-
-            }
-            if (npc.type == NPCID.DungeonSpirit)
-            {
-                if (Main.rand.NextBool(100))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<GhostBullets>());
-                }
-
-            }
-            if (npc.type == NPCID.PossessedArmor)
-            {
-                if (Main.rand.NextBool(150))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<SilverBullets>());
-                }
-
-            }
-            if (npc.type == NPCID.SkeletronPrime)
-            {
-                if (Main.rand.NextBool(5))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<BionicLeg>());
-                }
-
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShockRifle>(), 5));
             }
             if (npc.type == NPCID.DukeFishron)
             {
-                if (Main.rand.NextBool(5))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<AWP>());
-                }
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AWP>(), 4));
+            }
+            if (npc.type == NPCID.Hornet)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IrradiatedLead>(), 25));
+            }
+            // ghorn
+            if (npc.type == NPCID.AngryTrapper)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheExotic>(), 200));
 
             }
-            if (npc.type == NPCID.GraniteGolem)
+            if (npc.type == NPCID.Arapaima)
             {
-                if (Main.rand.NextBool(15))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<BigIron>());
-                }
-
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheExotic>(), 200));
+            }
+            if (npc.type == NPCID.Derpling)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheExotic>(), 200));
+            }
+            if (npc.type == NPCID.GiantFlyingFox)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheExotic>(), 200));
+            }
+            if (npc.type == NPCID.GiantTortoise)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheExotic>(), 200));
+            }
+            if (npc.type == NPCID.AnglerFish)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheExotic>(), 200));
+            }
+            // ghost bullets
+            if (npc.type == NPCID.TacticalSkeleton)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.SkeletonSniper)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.BoneLee)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 25));
+            }
+            if (npc.type == NPCID.DungeonSpirit)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 25));
+            }
+            if (npc.type == NPCID.SkeletonCommando)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.GiantCursedSkull)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 25));
+            }
+            if (npc.type == NPCID.Necromancer)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.NecromancerArmored)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.Paladin)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 25));
+            }
+            if (npc.type == NPCID.NecromancerArmored)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.RaggedCaster)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.RaggedCasterOpenCoat)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.DiabolistRed)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            if (npc.type == NPCID.DiabolistWhite)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostBullets>(), 100));
+            }
+            //
+            if (npc.type == NPCID.PossessedArmor) 
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SilverBullets>(), 25));
             }
             if (npc.type == NPCID.WanderingEye)
             {
-                if (Main.rand.NextBool(100))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleVision>());
-                }
-
-            }
-            if (npc.type == NPCID.DemonEye)
-            {
-                if (Main.rand.NextBool(10000))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleVision>());
-                }
-
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DoubleVision>(), 25));
             }
             if (npc.type == NPCID.EyeofCthulhu)
             {
-                if (Main.rand.NextBool(1000))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleVision>());
-                }
-
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DoubleVision>(), 100));
             }
-            if (npc.type == NPCID.BoneSerpentBody)
-            {
-                if (Main.rand.NextBool(10))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<DragunFire>());
-                }
-
-            }
-            if (npc.type == NPCID.BoneSerpentHead)
-            {
-                if (Main.rand.NextBool(10))
-                {
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<DragunFire>());
-                }
-
-            }
-
-
-
         }
-
+       
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
-            if (type == NPCID.Cyborg)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RocketBullets>());
-                nextSlot++;
-
-            }
-
-            if (type == NPCID.Dryad)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<PeaSeeds>());
-                nextSlot++;
-
-            }
-            if (type == NPCID.ArmsDealer)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BudgetRevolver>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MarineSidearm>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RogueSpecial>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RustySidearm>());
-                nextSlot++;
-
-            }
-            if (type == NPCID.Merchant)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeartSynthesizer>());
-                nextSlot++;
-            }
             if (NPC.downedBoss3) // skeletron
             {
                 if (type == NPCID.ArmsDealer)
@@ -183,8 +141,21 @@ namespace GungeonMod
 
                 }
             }
-
+            if (type == NPCID.Cyborg)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RocketBullets>());
+                nextSlot++;
+            }
+            if (type == NPCID.Merchant)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeartSynthesizer>());
+                nextSlot++;
+            }
         }
 
     }
+
+
+
+
 }

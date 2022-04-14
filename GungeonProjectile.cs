@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using GungeonMod;
-namespace GungeonMod
+namespace GungeonMod.Items
 {
-  public class GungeonProjectile : GlobalProjectile
+    public class Class1 : GlobalProjectile
     {
         public override bool InstancePerEntity
         {
@@ -20,45 +20,35 @@ namespace GungeonMod
             }
         }
         public bool SnowBalletsProj = false;
+
         public override bool PreAI(Projectile projectile)
         {
-            bool rv = true;
+            bool TR = true;
             Player player = Main.player[Main.myPlayer];
             GungeonPlayer modPlayer = player.GetModPlayer<GungeonPlayer>();
-            if (modPlayer.SnowBallets && projectile.friendly && projectile.ranged && modPlayer.SnowBalletsCD == 0)
+            if (modPlayer.SnowBallets && projectile.friendly && modPlayer.SnowBalletsCD == 0 && projectile.CountsAsClass(DamageClass.Ranged))
             {
                 projectile.position = projectile.Center;
                 projectile.scale *= 2f;
                 projectile.width *= 2;
+            
                 projectile.height *= 2;
                 projectile.Center = projectile.position;
                 SnowBalletsProj = false;
                 modPlayer.SnowBalletsCD = 30;
 
             }
-            if (modPlayer.GhostBullets && projectile.friendly && projectile.ranged)
+            if (modPlayer.GhostBullets && projectile.friendly && projectile.CountsAsClass(DamageClass.Ranged))
             {
                 projectile.maxPenetrate += 1;
+                projectile.tileCollide = false;
             }
-            if (modPlayer.RocketBullets && projectile.friendly && projectile.ranged)
+        
+            if (modPlayer.RocketBullets && projectile.friendly && projectile.CountsAsClass(DamageClass.Ranged))
             {
                 projectile.velocity *= 1.05f;
             }
-            return rv;
+            return TR;
         }
-
-        public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough)
-        {
-            if (SnowBalletsProj)
-            {
-                width /= 2;
-                height /= 2;
-            }
-            return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough);
-        }
-        
-       
-
-
     }
 }
