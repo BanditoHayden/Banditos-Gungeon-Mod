@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using GungeonMod.Items.Weapons.Ranged.PeaShooter;
 using GungeonMod.Items.Actives.DoubleVision;
 using GungeonMod.Items.Actives.PotionofGunFriendship;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using GungeonMod.Items.Accessories.Passives.Broccoli;
 
 namespace GungeonMod
 {
@@ -19,7 +22,11 @@ namespace GungeonMod
 		public bool RocketBullets;
 		public bool SilverBullets;
 		public bool HeartSynthesizer;
-		
+		public bool FatBullets;
+		public bool Bumble;
+		public bool Dodge;
+		public bool DodgeProc = false;
+
 		public override void ResetEffects()
         {
 			SnowBallets = false;
@@ -29,6 +36,9 @@ namespace GungeonMod
 			HotLead = false;
 			IrradiatedLead = false;
 			HeartSynthesizer = false;
+			FatBullets = false;
+			Bumble = false;
+			Dodge = false;
 		}
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -112,11 +122,43 @@ namespace GungeonMod
 				new Item(ModContent.ItemType<PeaShooter>()),
 			};
 		}
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+			DodgeProc = false;
+			if (Dodge && Main.rand.Next(12) == 0)
+			{
+				hitDirection = 0;
+				DodgeProc = true;
+				Player.AddBuff(ModContent.BuffType<Dodge>(), (Player.longInvince ? 120 : 80));
+				return false;
+			}
+			return true;
+		}
+	
 		public override void PreUpdate()
 		{
 			if (SnowBallets && SnowBalletsCD > 0)
 				SnowBalletsCD--;
 		}
+        public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+			if (Bumble)
+			{
+				const int NumProjectiles = 1;
+				if (Main.rand.NextBool(10))
+                {
+					for (int i = 0; i < NumProjectiles; i++)
+					{
+						Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+						newVelocity *= 1f - Main.rand.NextFloat(0.3f);
+						Projectile.NewProjectile(source, position, velocity, ProjectileID.Bee, damage, knockback, Player.whoAmI);
 
-	}
+					}
+				}
+		
+			}
+				return true;
+			
+        }
+    }
 }

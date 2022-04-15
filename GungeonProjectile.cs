@@ -20,7 +20,9 @@ namespace GungeonMod.Items
             }
         }
         public bool SnowBalletsProj = false;
-
+   
+       
+       
         public override bool PreAI(Projectile projectile)
         {
             bool TR = true;
@@ -31,13 +33,15 @@ namespace GungeonMod.Items
                 projectile.position = projectile.Center;
                 projectile.scale *= 2f;
                 projectile.width *= 2;
-            
+
                 projectile.height *= 2;
                 projectile.Center = projectile.position;
                 SnowBalletsProj = false;
                 modPlayer.SnowBalletsCD = 30;
 
             }
+           // if (modPlayer.FatBullets && projectile.friendly && projectile.CountsAsClass(DamageClass.Ranged))
+            
             if (modPlayer.GhostBullets && projectile.friendly && projectile.CountsAsClass(DamageClass.Ranged))
             {
                 projectile.maxPenetrate += 1;

@@ -13,11 +13,15 @@ using GungeonMod.Items.Accessories.BulletUpgrades;
 using GungeonMod.Items.Accessories.BulletUpgrades.SilverBullets;
 using GungeonMod.Items.Accessories.Passives.HeartSynthesizer;
 using GungeonMod.Items.Actives.DoubleVision;
+using GungeonMod.Items.Weapons.Ranged.BeeHive;
+using GungeonMod.Items.Weapons.Ranged.Cactus;
+using GungeonMod.Items.Accessories.Passives.Broccoli;
 
 namespace GungeonMod
 {
     public class GungeonNPC : GlobalNPC
     {
+        public override bool InstancePerEntity => true;
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             if (npc.type == NPCID.MartianSaucerCore)
@@ -128,6 +132,10 @@ namespace GungeonMod
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DoubleVision>(), 100));
             }
+            if (npc.type == NPCID.QueenBee)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BeeHive>(), 10));
+            }
         }
        
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
@@ -151,10 +159,33 @@ namespace GungeonMod
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeartSynthesizer>());
                 nextSlot++;
             }
+
+            if (Main.hardMode)
+            {
+                if (type == NPCID.Dryad)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Broccoli>());
+                    nextSlot++; // Don't forget this line, it is essential.
+
+                }
+            }
+
+
+
+        }
+        public bool Needle;
+        public override void ResetEffects(NPC npc)
+        {
+           Needle = false;
         }
 
-    }
+      
 
+
+
+
+    }
+   
 
 
 
